@@ -9,7 +9,7 @@ console.disableYellowBox = true;
 export default function App() {
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar style="dark"/>
+            <StatusBar style="dark" statusBarTranslucent={false}/>
             <Routes/>
         </SafeAreaView>
     );

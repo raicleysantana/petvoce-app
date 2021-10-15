@@ -11,9 +11,9 @@ function AppTabsBottom() {
     return (
         <Navigator
             initialRouteName="Home"
-            activeColor="yellow"
-            inactiveColor="#FFF"
-            barStyle={{backgroundColor: 'tomato'}}
+            activeColor={"tomato"}
+            inactiveColor="#444"
+            barStyle={{backgroundColor: '#FFFFFF'}}
         >
             <Screen
                 name={"Home"}

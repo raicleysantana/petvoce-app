@@ -55,13 +55,14 @@ const styles = StyleSheet.create({
 
     servicesItem: {
         flex: 1,
-        borderWidth: .4,
-        borderColor: "#999",
+        /*borderWidth: .4,
+        borderColor: "#999",*/
         height: 110,
         marginHorizontal: 4,
         borderRadius: 8,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: "#FFFFFF",
     },
 
     serviceImage: {

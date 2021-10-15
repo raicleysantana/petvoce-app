@@ -52,13 +52,14 @@ export default highlightsList;
 const styles = StyleSheet.create({
 
     card: {
-        borderWidth: .8,
-        borderColor: "#ccc",
+        /*borderWidth: .8,
+        borderColor: "#ccc",*/
         borderRadius: 8,
         paddingHorizontal: 15,
         paddingVertical: 5,
         marginHorizontal: 5,
         marginBottom: 2,
+        backgroundColor: "#FFFFFF",
     },
 
     image: {
