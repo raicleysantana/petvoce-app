@@ -24,7 +24,7 @@ export default class BannerHome extends Component {
                 this.setState({
                     position: this.state.position === this.state.dataSource.length ? 0 : this.state.position + 1
                 });
-            }, 4000)
+            }, 6000)
         });
     }
 

@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import AppTabsBottom from './AppTabsBottom';
 import View from '../pages/ProductsServices/view';
+import Services from "../pages/Services";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -21,6 +22,10 @@ function AppStack() {
                 <Screen name={"Login"} component={Login}/>
                 <Screen name={"view"} component={View}/>
                 <Screen name={"TabsBottom"} component={AppTabsBottom}/>
+                <Screen name={"service"} component={Services} options={{
+                    title: 'Listagem',
+                    headerShown: true,
+                }}/>
             </Navigator>
         </NavigationContainer>
     )

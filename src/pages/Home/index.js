@@ -17,7 +17,7 @@ function index({navigation}) {
             <View style={styles.header}>
 
                 <View style={[styles.headerItems, {width: '15%'}]}>
-                    <Image style={styles.logo} source={Logo} resizeMode={"cover"}/>
+                    <Image style={styles.logo} source={Logo}/>
                 </View>
                 <View style={[styles.headerItems, {width: '70%'}]}>
                     <SearchBar
@@ -51,7 +51,7 @@ function index({navigation}) {
                 <Text style={styles.title}>SERVIÇOS</Text>
             </View>
 
-            <ServicesCard/>
+            <ServicesCard navigation={navigation}/>
 
         </ScrollView>
     );

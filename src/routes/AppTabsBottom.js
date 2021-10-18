@@ -60,6 +60,17 @@ function AppTabsBottom() {
                 }}
             />
 
+            <Screen
+                name={"Home4"}
+                component={Home}
+                options={{
+                    tabBarLabel: 'Início',
+                    tabBarIcon: ({color}) => (
+                        <MaterialCommunityIcons name="account-outline" color={color} size={26}/>
+                    ),
+                }}
+            />
+
         </Navigator>
     )
 }

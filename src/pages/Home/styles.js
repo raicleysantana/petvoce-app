@@ -6,10 +6,9 @@ const styles = StyleSheet.create({
     },
 
     header: {
-        marginTop: 15,
         borderBottomWidth: .3,
         borderBottomColor: "#999",
-        paddingVertical: 8,
+        paddingVertical: 5,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
     logo: {
         width: 60,
         height: 60,
-        resizeMode: "contain",
+        resizeMode: "center",
     },
 
     titleContainer: {
