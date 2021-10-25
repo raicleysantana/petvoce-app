@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Text, FlatList, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, FlatList, Image, View, StyleSheet, TouchableOpacity} from 'react-native';
 import api from '../services/api';
 import imgDefault from '../assets/img_default.png';
 
-function highlightsList({ navigation }) {
+function highlightsList({navigation}) {
     const [productsServices, setPoductsServices] = useState([]);
 
     useEffect(() => {
@@ -12,26 +12,26 @@ function highlightsList({ navigation }) {
 
 
     const loadProductsServices = async () => {
-        await api.get("destaques", {}).then(function (response) {
+        await api.get("produtos-servicos", {}).then(function (response) {
             const retorno = response.data;
             setPoductsServices(retorno);
         });
     }
 
-    const viewStore = (codigo) => {
-        navigation.navigate("view_store", {
+    const viewProdutosService = (codigo) => {
+        navigation.navigate("view", {
             id: codigo
         });
     }
 
-    const items = ({ item }) => {
+    const items = ({item}) => {
         return (
-            <TouchableOpacity style={styles.card} onPress={() => viewStore(item.cad_id)}>
+            <TouchableOpacity style={styles.card} onPress={() => viewProdutosService(item.ps_codigo)}>
                 <Image
                     source={imgDefault}
                     style={styles.image}
                 />
-                <Text style={styles.title}>{item.cad_nome}</Text>
+                <Text style={styles.title}>{item.ps_nome}</Text>
             </TouchableOpacity>
         );
     }
@@ -39,7 +39,7 @@ function highlightsList({ navigation }) {
     return (
         <FlatList
             data={productsServices}
-            keyExtractor={item => item.cad_id.toString()}
+            keyExtractor={item => item.ps_codigo.toString()}
             renderItem={items}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -60,10 +60,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         marginBottom: 2,
         backgroundColor: "#FFFFFF",
-        height: 160,
-        width: 200,
-        justifyContent: 'center',
-        alignItems: "center"
     },
 
     image: {
@@ -75,7 +71,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontWeight: "600",
-        fontSize: 15,
+        fontSize: 16,
         color: "#444"
     }
 });

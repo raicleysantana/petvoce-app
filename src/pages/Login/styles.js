@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         borderWidth: 1,
         borderColor: "#FFFFFF",
-        borderRadius: 20,
+        borderRadius: 5,
         paddingHorizontal: 20,
         paddingVertical: 12,
         fontSize: 16,
@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     buttonContainer: {},
 
     buttonEnter: {
-        backgroundColor: "#c89600",
+        backgroundColor: "#fbc02d",
         borderColor: "#b08400",
         borderRadius: 8,
-        paddingVertical: 10,
+        paddingVertical: 12,
 
     }
 

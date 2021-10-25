@@ -48,7 +48,7 @@ function servicesCard({navigation}) {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.servicesItem}>
                     <Image source={ImgBlog} style={styles.serviceImage}/>
-                    <Text style={styles.serviceTitle}>BLOG</Text>
+                    <Text style={styles.serviceTitle}>CADASTRE-SE</Text>
                 </TouchableOpacity>
             </View>
         </>
