@@ -13,31 +13,24 @@ export default function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <StatusBar
-                style="light"
-                translucent={false}
-                animated={true}
-                backgroundColor={"#3686e7"}
-                networkActivityIndicatorVisible={true}
-                showHideTransition="fade"
-
-            />
+           
             <View style={styles.form}>
                 <View style={styles.logoContainer}>
                     <Image source={logo} style={styles.logo} />
                 </View>
+                
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder={"Usuário"}
                         style={styles.input}
-                        placeholderTextColor="#CCC"
+                        placeholderTextColor="#999"
                     />
                 </View>
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder={"Usuário"}
                         style={styles.input}
-                        placeholderTextColor="#CCC"
+                        placeholderTextColor="#999"
                     />
                 </View>
 

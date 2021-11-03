@@ -1,21 +1,22 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: "#3686e7",
+        padding: 30,
+        backgroundColor: "#FFFFFF",
     },
+    //"#3686e7"
 
     logoContainer: {
         alignItems: "center",
     },
 
     logo: {
-        width: 180,
-        height: 180,
+        width: 150,
+        height: 150,
         resizeMode: 'contain',
-        marginBottom: 20,
+        marginBottom: 40,
     },
 
     form: {
@@ -25,25 +26,28 @@ const styles = StyleSheet.create({
     },
 
     inputContainer: {
-        marginBottom: 20,
+        marginBottom: 15,
     },
 
     input: {
-        color: "#FFFFFF",
+        backgroundColor: "#FAFAFA",
+        color: "#ccc",
         borderWidth: 1,
-        borderColor: "#FFFFFF",
-        borderRadius: 5,
+        borderColor: "#ccc",
+        borderRadius: 10,
         paddingHorizontal: 20,
         paddingVertical: 12,
         fontSize: 16,
     },
 
-    buttonContainer: {},
+    buttonContainer: {
+        marginTop: 20,
+    },
 
     buttonEnter: {
         backgroundColor: "#fbc02d",
         borderColor: "#b08400",
-        borderRadius: 8,
+        borderRadius: 10,
         paddingVertical: 12,
 
     }

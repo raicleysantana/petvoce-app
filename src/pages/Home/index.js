@@ -37,7 +37,7 @@ function index({ navigation }) {
                         round={"default"}
                         containerStyle={{ backgroundColor: "#FFFFFF", borderBottomWidth: 0, borderTopWidth: 0, }}
                         inputStyle={{ color: "#444", height: 38, fontSize: 15 }}
-                        inputContainerStyle={{ height: 40, backgroundColor: "#ccc" }}
+                        inputContainerStyle={{ height: 39, backgroundColor: "#FAFAFA", borderColor: "#ccc", borderWidth: 1, borderBottomWidth: 1 }}
 
                     />
                 </View>
