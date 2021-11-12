@@ -10,6 +10,7 @@ export default class BannerHome extends Component {
             position: 0,
             interval: null,
             dataSource: [
+                { url : 'https://meupet.vet.br/wp-content/uploads/2014/01/banner-petshop-1.png'},
                 {url: 'https://images.tcdn.com.br/img/img_prod/560844/1616685663_molecao_banner_app_royal_canin.png'},
                 {url: 'https://hospitalveterinariosaude.com.br/wp-content/uploads/2019/10/redes-sociais-hvs.png'},
                 {url: 'https://images.tcdn.com.br/img/img_prod/560844/1617539078_molecao_banner_app_pro_plan.png'}

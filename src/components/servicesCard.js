@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Text, FlatList, Image, View, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, FlatList, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Logo from "../assets/logo.png";
 import ImgPetSaude from '../assets/services/pet-pet-saude.jpg';
 import ImgPetShop from '../assets/services/pet-pet-shop.jpg';
@@ -8,10 +8,10 @@ import ImgVeterinario from '../assets/services/pet-veterinario.jpg';
 import ImgGroomer from '../assets/services/pet-groomer.jpg';
 import ImgBlog from '../assets/services/pet-blog.jpg';
 
-function servicesCard({navigation}) {
+function servicesCard({ navigation }) {
 
     const handleService = (type, title) => {
-        navigation.navigate("service", {type, title})
+        navigation.navigate("service", { type, title })
     }
 
     return (
@@ -21,34 +21,34 @@ function servicesCard({navigation}) {
                     style={styles.servicesItem}
                     onPress={() => handleService("cv", "Clínicas Veterinárias")}
                 >
-                    <Image source={ImgPetSaude} style={styles.serviceImage}/>
+                    <Image source={ImgPetSaude} style={styles.serviceImage} />
                     <Text style={styles.serviceTitle}>PET SAÚDE</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.servicesItem}>
+                    <Image source={ImgGroomer} style={styles.serviceImage} />
+                    <Text style={styles.serviceTitle}>GROOMER</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.servicesItem}
                     onPress={() => handleService("ps", "Pet Shoppings")}
                 >
-                    <Image source={ImgPetShop} style={styles.serviceImage}/>
-                    <Text style={styles.serviceTitle}>PET SHOP</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.servicesItem}>
-                    <Image source={ImgSeuPet} style={styles.serviceImage}/>
-                    <Text style={styles.serviceTitle}>SEU PET</Text>
+                    <Image source={ImgPetShop} style={styles.serviceImage} />
+                    <Text style={styles.serviceTitle}>PET PRODUTOS</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.servicesContainer}>
                 <TouchableOpacity style={styles.servicesItem}>
-                    <Image source={ImgVeterinario} style={styles.serviceImage}/>
-                    <Text style={styles.serviceTitle}>VETÉRINARIO</Text>
+                    <Image source={ImgSeuPet} style={styles.serviceImage} />
+                    <Text style={styles.serviceTitle}>SEU PET</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.servicesItem}>
-                    <Image source={ImgGroomer} style={styles.serviceImage}/>
-                    <Text style={styles.serviceTitle}>GROOMER</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.servicesItem}>
-                    <Image source={ImgBlog} style={styles.serviceImage}/>
+                    <Image source={ImgBlog} style={styles.serviceImage} />
                     <Text style={styles.serviceTitle}>CADASTRE-SE</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.servicesItem}>
+                    <Image source={ImgVeterinario} style={styles.serviceImage} />
+                    <Text style={styles.serviceTitle}>VETÉRINARIO</Text>
                 </TouchableOpacity>
             </View>
         </>

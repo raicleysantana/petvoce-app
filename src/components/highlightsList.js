@@ -12,13 +12,13 @@ function highlightsList({ navigation }) {
 
 
     const loadProductsServices = async () => {
-        await api.get("destaques", {}).then(function (response) {
+        await api.get("produtos-servicos", {}).then(function (response) {
             const retorno = response.data;
             setPoductsServices(retorno);
         });
     }
 
-    const viewStore = (codigo) => {
+    const viewProdutoService = (codigo) => {
         navigation.navigate("view_store", {
             id: codigo
         });
@@ -26,12 +26,12 @@ function highlightsList({ navigation }) {
 
     const items = ({ item }) => {
         return (
-            <TouchableOpacity style={styles.card} onPress={() => viewStore(item.cad_id)}>
+            <TouchableOpacity style={styles.card} onPress={() => viewProdutoService(item.ps_id)}>
                 <Image
-                    source={imgDefault}
+                    source={{ uri : item.ps_foto}}
                     style={styles.image}
                 />
-                <Text style={styles.title}>{item.cad_nome}</Text>
+                <Text style={styles.title}>{item.ps_nome}</Text>
             </TouchableOpacity>
         );
     }
@@ -39,7 +39,7 @@ function highlightsList({ navigation }) {
     return (
         <FlatList
             data={productsServices}
-            keyExtractor={item => item.cad_id.toString()}
+            keyExtractor={item => item.ps_id.toString()}
             renderItem={items}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
