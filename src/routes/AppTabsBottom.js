@@ -3,7 +3,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Home from '../pages/Home';
-import Login from '../pages/Login';
+import Cart from '../pages/Cart';
 
 const {Navigator, Screen} = createMaterialBottomTabNavigator();
 
@@ -42,7 +42,7 @@ function AppTabsBottom() {
                 name={"Home2"}
                 component={Home}
                 options={{
-                    tabBarLabel: 'Início',
+                    tabBarLabel: 'Mapa',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="shopping-outline" color={color} size={26}/>
                     ),
@@ -50,10 +50,10 @@ function AppTabsBottom() {
             />
 
             <Screen
-                name={"Home3"}
-                component={Home}
+                name={"Cart"}
+                component={Cart}
                 options={{
-                    tabBarLabel: 'Início',
+                    tabBarLabel: 'Carrinho',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="cart-outline" color={color} size={26}/>
                     ),
@@ -64,7 +64,7 @@ function AppTabsBottom() {
                 name={"Home4"}
                 component={Home}
                 options={{
-                    tabBarLabel: 'Início',
+                    tabBarLabel: 'Minha conta',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="account-outline" color={color} size={26}/>
                     ),
