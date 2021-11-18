@@ -4,6 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import Home from '../pages/Home';
 import Cart from '../pages/Cart';
+import Profile from '../pages/Profile';
 
 const {Navigator, Screen} = createMaterialBottomTabNavigator();
 
@@ -61,10 +62,10 @@ function AppTabsBottom() {
             />
 
             <Screen
-                name={"Home4"}
-                component={Home}
+                name={"profile"}
+                component={Profile}
                 options={{
-                    tabBarLabel: 'Minha conta',
+                    tabBarLabel: 'Perfil',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="account-outline" color={color} size={26}/>
                     ),
