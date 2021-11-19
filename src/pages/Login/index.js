@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
-import {View, Text, Image, TextInput} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {Button} from 'react-native-elements';
 import logo from '../../assets/logo.png';
 import api from "../../services/api";
 import {Dialog, Paragraph} from 'react-native-paper';
+import {Context} from "../../context/authContext";
 
 export default function Login({navigation}) {
+    const {state, teste} = useContext(Context);
 
     const [usuario, setUsuario] = useState("");
     const [senha, setSenha] = useState("");
@@ -16,6 +18,7 @@ export default function Login({navigation}) {
     const hideDialog = () => setVisibleMsg(false);
 
     const handleEnter = async () => {
+
         if (usuario.length === 0 || senha.length === 0) {
             setTextMsg('Preencha usuário e senha para continuar!');
             setVisibleMsg(true);
@@ -28,12 +31,14 @@ export default function Login({navigation}) {
 
         if (data) {
             navigation.navigate("TabsBottom");
-
-            console.log(data);
         } else {
             setTextMsg("Usuário não encontrado");
             setVisibleMsg(true);
         }
+    }
+
+    const Signup = () => {
+        navigation.navigate("Signup");
     }
 
     return (
@@ -67,6 +72,13 @@ export default function Login({navigation}) {
                         buttonStyle={styles.buttonEnter}
                         onPress={() => handleEnter()}
                     />
+                </View>
+
+                <View style={{marginTop: 20, flexDirection: "row", justifyContent: "center"}}>
+                    <Text style={{color: '#646161'}}>Não tem um conta? </Text>
+                    <TouchableOpacity onPress={Signup}>
+                        <Text style={{color: "#2a5db0"}}>Crie uma</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
 

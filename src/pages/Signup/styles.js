@@ -1,42 +1,49 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 30,
+        paddingHorizontal: 20,
+        paddingVertical: 20,
         backgroundColor: "#FFFFFF",
     },
-    //"#3686e7"
 
-    logoContainer: {
+    rowTitle: {
         alignItems: "center",
+        justifyContent: "center",
     },
 
-    logo: {
-        width: 150,
-        height: 150,
-        resizeMode: 'contain',
-        marginBottom: 40,
+    label: {
+        fontWeight: 'bold',
+        color: '#444',
+        marginBottom: 8,
+    },
+
+    title: {
+        fontWeight: "bold",
+        fontSize: 25,
+        color: "#343a40",
     },
 
     form: {
         flex: 1,
         width: '100%',
         justifyContent: "center",
+        paddingVertical : 10,
     },
 
     inputContainer: {
-        marginBottom: 10,
+        marginBottom: 15,
     },
 
     input: {
         backgroundColor: "#FAFAFA",
         color: "#444",
         borderWidth: 1,
-        borderColor: "#ccc",
+        borderColor: "#ddd",
         borderRadius: 10,
         paddingHorizontal: 20,
-        paddingVertical: 13,
+        paddingVertical: 12,
         fontSize: 16,
     },
 
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fbc02d",
         borderColor: "#b08400",
         borderRadius: 10,
-        paddingVertical: 13,
+        paddingVertical: 12,
 
     }
 
