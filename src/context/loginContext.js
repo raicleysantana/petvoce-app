@@ -1,5 +1,5 @@
 import createContext from "./createContext";
-import api from '../services/api';
+import {useState} from "react";
 
 const initialState = {};
 
@@ -10,20 +10,14 @@ const reducer = (state, action) => {
     }
 };
 
-const teste = (dispatch) => {
-    return (args) => {
-        console.log(args);
-    };
-};
 
-const createUser = (dispatch) => {
-    return async (nome, email, senha) => {
-
+const User = (dispatch) => {
+    return async (user) => {
     }
 }
 
 export const {Context, Provider} = createContext(
     reducer,
-    {teste, createUser},
+    {User},
     initialState
 );

@@ -1,14 +1,18 @@
 import React, {useState, useContext} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
-import styles from './styles';
+import {Dialog, Paragraph} from 'react-native-paper';
+import {useToast} from "react-native-styled-toast";
 import {Button} from 'react-native-elements';
+
+import styles from './styles';
 import logo from '../../assets/logo.png';
 import api from "../../services/api";
-import {Dialog, Paragraph} from 'react-native-paper';
-import {Context} from "../../context/authContext";
+
+import {Context} from "../../context/loginContext";
+
 
 export default function Login({navigation}) {
-    const {state, teste} = useContext(Context);
+    const {User} = useContext(Context);
 
     const [usuario, setUsuario] = useState("");
     const [senha, setSenha] = useState("");
@@ -16,13 +20,20 @@ export default function Login({navigation}) {
     const [textMsg, setTextMsg] = useState("");
 
     const hideDialog = () => setVisibleMsg(false);
+    const {toast} = useToast();
 
     const handleEnter = async () => {
 
         if (usuario.length === 0 || senha.length === 0) {
-            setTextMsg('Preencha usuário e senha para continuar!');
-            setVisibleMsg(true);
-            console.log('123');
+
+            toast({
+                iconName: 'info',
+                message: 'Preencha usuário e senha para continuar!',
+                accentColor: 'error',
+                iconColor: 'error',
+                shouldVibrate: true,
+            })
+
             return false;
         }
 
@@ -30,6 +41,7 @@ export default function Login({navigation}) {
         const {data} = response;
 
         if (data) {
+            await User(data);
             navigation.navigate("TabsBottom");
         } else {
             setTextMsg("Usuário não encontrado");

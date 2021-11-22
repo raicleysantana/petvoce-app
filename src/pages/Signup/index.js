@@ -10,30 +10,39 @@ import styles from './styles';
 import {Button} from 'react-native-elements';
 import api from "../../services/api";
 import {Dialog, Paragraph} from 'react-native-paper';
+import {useToast} from "react-native-styled-toast";
 
 export default function Login({navigation}) {
-    const [usuario, setUsuario] = useState("");
-    const [senha, setSenha] = useState("");
+    const [cliente, setCliente] = useState({
+        cli_nome: "",
+        cli_email: "",
+        cli_endereco: "",
+        cli_usuario: "",
+        cli_senha: "",
+        cli_celular: "",
+    });
+
     const [visibleMsg, setVisibleMsg] = useState(false);
     const [textMsg, setTextMsg] = useState("");
 
     const hideDialog = () => setVisibleMsg(false);
+    const {toast} = useToast();
 
     const handleEnter = async () => {
-        if (usuario.length === 0 || senha.length === 0) {
-            setTextMsg('Preencha usuário e senha para continuar!');
-            setVisibleMsg(true);
 
-            return false;
-        }
-
-        const response = await api.post("login", {usuario, senha});
+        const response = await api.post("register-client", cliente);
         const {data} = response;
 
         if (data) {
-            navigation.navigate("TabsBottom");
+            toast({
+                iconName: 'success',
+                message: 'Preencha usuário e senha para continuar!',
+                accentColor: 'success',
+                iconColor: 'success',
+                shouldVibrate: true,
+            })
 
-            console.log(data);
+            navigation.navigate("Login");
         } else {
             setTextMsg("Usuário não encontrado");
             setVisibleMsg(true);
@@ -53,7 +62,13 @@ export default function Login({navigation}) {
                             placeholder={"Digite seu nome"}
                             style={styles.input}
                             placeholderTextColor="#999"
-                            onChangeText={setUsuario}
+                            value={cliente.cli_nome}
+                            onChangeText={value => {
+                                setCliente({
+                                    ...cliente,
+                                    ["cli_nome"]: value,
+                                })
+                            }}
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -62,7 +77,15 @@ export default function Login({navigation}) {
                             placeholder={"Digite seu E-Mail"}
                             style={styles.input}
                             placeholderTextColor="#999"
-                            onChangeText={setSenha}
+                            keyboardType={"email-address"}
+                            value={cliente.cli_email}
+                            autoCapitalize="none"
+                            onChangeText={value => {
+                                setCliente({
+                                    ...cliente,
+                                    ["cli_email"]: value,
+                                })
+                            }}
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -71,7 +94,14 @@ export default function Login({navigation}) {
                             placeholder={"Digite seu usuário"}
                             style={styles.input}
                             placeholderTextColor="#999"
-                            onChangeText={setSenha}
+                            value={cliente.cli_usuario}
+                            autoCapitalize="none"
+                            onChangeText={value => {
+                                setCliente({
+                                    ...cliente,
+                                    ["cli_usuario"]: value,
+                                })
+                            }}
                         />
                     </View>
 
@@ -81,7 +111,14 @@ export default function Login({navigation}) {
                             placeholder={"Digite sua senha"}
                             style={styles.input}
                             placeholderTextColor="#999"
-                            onChangeText={setSenha}
+                            value={cliente.cli_senha}
+                            onChangeText={value => {
+                                setCliente({
+                                    ...cliente,
+                                    ["cli_senha"]: value,
+                                })
+                            }}
+                            secureTextEntry={true}
                         />
                     </View>
 
@@ -91,7 +128,14 @@ export default function Login({navigation}) {
                             placeholder={"Digite o número de celular"}
                             style={styles.input}
                             placeholderTextColor="#999"
-                            onChangeText={setSenha}
+                            value={cliente.cli_celular}
+                            onChangeText={value => {
+                                setCliente({
+                                    ...cliente,
+                                    ["cli_celular"]: value,
+                                })
+                            }}
+                            keyboardType={"phone-pad"}
                         />
                     </View>
 
@@ -101,7 +145,13 @@ export default function Login({navigation}) {
                             placeholder={"Digite seu endereço"}
                             style={styles.input}
                             placeholderTextColor="#999"
-                            onChangeText={setSenha}
+                            value={cliente.cli_endereco}
+                            onChangeText={value => {
+                                setCliente({
+                                    ...cliente,
+                                    ["cli_endereco"]: value,
+                                })
+                            }}
                         />
                     </View>
                     <View style={styles.buttonContainer}>

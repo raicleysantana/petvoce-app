@@ -9,7 +9,7 @@ import View from '../pages/ProductsServices/view';
 import Services from "../pages/Services";
 import ViewProductService from "../pages/ProductsServices/view";
 import List from "../pages/ListProductsServices";
-import {Provider} from '../context/authContext';
+import {Provider} from '../context/loginContext';
 
 const {Navigator, Screen} = createStackNavigator();
 
