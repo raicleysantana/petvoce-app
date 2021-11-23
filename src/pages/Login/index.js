@@ -3,17 +3,14 @@ import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import {Dialog, Paragraph} from 'react-native-paper';
 import {useToast} from "react-native-styled-toast";
 import {Button} from 'react-native-elements';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from './styles';
 import logo from '../../assets/logo.png';
 import api from "../../services/api";
 
-import {Context} from "../../context/loginContext";
-
 
 export default function Login({navigation}) {
-    const {User} = useContext(Context);
-
     const [usuario, setUsuario] = useState("");
     const [senha, setSenha] = useState("");
     const [visibleMsg, setVisibleMsg] = useState(false);
@@ -41,7 +38,8 @@ export default function Login({navigation}) {
         const {data} = response;
 
         if (data) {
-            await User(data);
+            //console.log(data);
+            await AsyncStorage.setItem("id", data.cli_id.toString());
             navigation.navigate("TabsBottom");
         } else {
             setTextMsg("Usuário não encontrado");
@@ -67,6 +65,7 @@ export default function Login({navigation}) {
                         style={styles.input}
                         placeholderTextColor="#999"
                         onChangeText={setUsuario}
+                        autoCapitalize="none"
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -75,6 +74,7 @@ export default function Login({navigation}) {
                         style={styles.input}
                         placeholderTextColor="#999"
                         onChangeText={setSenha}
+                        secureTextEntry={true}
                     />
                 </View>
 

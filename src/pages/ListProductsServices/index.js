@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, FlatList, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator} from "react-native";
 import api from "../../services/api";
-import {Card, Image} from "react-native-elements";
+import {Card, Image, ListItem} from "react-native-elements";
 
 function Index({navigation, route}) {
     const [productsService, setProductService] = useState([]);
@@ -27,28 +27,31 @@ function Index({navigation, route}) {
     const CardProductItem = ({item}) => {
         return (
             <TouchableOpacity onPress={() => viewProdutoService(item.ps_id)}>
-                <Card containerStyle={styles.card}>
-                    <View style={{flexDirection: "row"}}>
-                        <View>
-                            <Image
-                                style={styles.image}
-                                source={{uri: item.ps_foto}}
-                                resizeMode="contain"
-                                PlaceholderContent={<ActivityIndicator/>}
-                            />
-                        </View>
-                        <View style={[styles.flex1, {paddingLeft: 10}]}>
-                            <Card.Title style={styles.titleCard}>{item.ps_nome}</Card.Title>
+                <ListItem containerStyle={styles.card}>
+                    <ListItem.Content>
+                        <View style={{flexDirection: "row"}}>
                             <View>
+                                <Image
+                                    style={styles.image}
+                                    source={{uri: item.ps_foto}}
+                                    resizeMode="contain"
+                                    PlaceholderContent={<ActivityIndicator/>}
+                                />
+                            </View>
+                            <View style={[styles.flex1, {paddingLeft: 10}]}>
+                                <Card.Title style={styles.titleCard}>{item.ps_nome}</Card.Title>
                                 <View>
-                                </View>
-                                <View>
-                                    <Text>R$ {item.ps_valor}</Text>
+                                    <View>
+                                    </View>
+                                    <View>
+                                        <Text>R$ {item.ps_valor}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                    </View>
-                </Card>
+                    </ListItem.Content>
+                    <ListItem.Chevron color="black"/>
+                </ListItem>
             </TouchableOpacity>
 
         );
@@ -59,7 +62,7 @@ function Index({navigation, route}) {
             <FlatList
                 data={productsService}
                 renderItem={CardProductItem}
-                keyExtractor={item => item.ps_id}
+                keyExtractor={item => item.ps_id.toString()}
             />
         </ScrollView>
     );

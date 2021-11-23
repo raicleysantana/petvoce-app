@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
 
     cardHeader: {
         flexDirection: "row",
-        justifyContent: "center"
+        justifyContent: "center",
+        paddingVertical: 20
     },
 
     cardName: {
@@ -21,6 +22,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 18
+    },
+
+    options: {
+        flex: 1,
+        width: '100%',
+        marginTop: 10,
+        paddingHorizontal: 15
     }
 });
 

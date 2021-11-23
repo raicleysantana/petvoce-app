@@ -5,7 +5,6 @@ import Routes from './src/routes/AppStack';
 import {ThemeProvider} from 'styled-components';
 import {ToastProvider} from 'react-native-styled-toast';
 import theme from './src/theme/theme';
-import AuthContext from "./src/context/auth";
 
 console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
 console.disableYellowBox = true;
@@ -15,18 +14,17 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <ThemeProvider theme={theme}>
                 <ToastProvider>
-                    <AuthContext.Provider value={{signed: true}}>
-                        <StatusBar
-                            style="dark"
-                            translucent={false}
-                            animated={true}
-                            backgroundColor={"#FFFFFF"}
-                            networkActivityIndicatorVisible={true}
-                            showHideTransition="fade"
+                    <StatusBar
+                        style="dark"
+                        translucent={false}
+                        animated={true}
+                        backgroundColor={"#FFFFFF"}
+                        networkActivityIndicatorVisible={true}
+                        showHideTransition="fade"
 
-                        />
-                        <Routes/>
-                    </AuthContext.Provider>
+                    />
+                    <Routes/>
+
                 </ToastProvider>
             </ThemeProvider>
         </SafeAreaView>

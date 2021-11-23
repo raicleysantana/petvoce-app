@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StatusBar} from 'expo-status-bar';
 import {ScrollView, View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
@@ -7,20 +7,21 @@ import {SearchBar} from 'react-native-elements';
 import HighlightsList from '../../components/highlightsList';
 import ServicesCard from '../../components/servicesCard';
 import BannerHome from "../../components/bannerHome";
-import AuthContext from "../../context/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function index({navigation}) {
-
     const [search, setSearch] = useState("");
+
+    useEffect(() => {
+        (async () => {
+            const id = await AsyncStorage.getItem("id");
+            console.log(id);
+        })();
+    }, []);
 
     const viewAll = () => {
         navigation.navigate("List");
     }
-
-    const {user} = useContext(AuthContext);
-
-
-    console.log(user);
 
     return (
         <ScrollView style={styles.container}>

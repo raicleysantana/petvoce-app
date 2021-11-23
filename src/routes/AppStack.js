@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from "@react-navigation/stack";
 import Home from '../pages/Home';
@@ -9,25 +9,54 @@ import View from '../pages/ProductsServices/view';
 import Services from "../pages/Services";
 import ViewProductService from "../pages/ProductsServices/view";
 import List from "../pages/ListProductsServices";
-import {Provider} from '../context/loginContext';
+import Redirect from "../pages/Login/redirect";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const {Navigator, Screen} = createStackNavigator();
 
+
 function AppStack() {
+    const [isSignin, setIsSignin] = useState("");
+
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("aguardando...");
+        }, 1000);
+
+        (async () => {
+            const id = await AsyncStorage.getItem("id");
+
+            if (id) {
+                setIsSignin("Home");
+            } else {
+                setIsSignin("Login");
+            }
+            console.log(id);
+
+        })();
+    }, []);
+
     return (
         <NavigationContainer>
             <Navigator
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName={"Login"}
+                initialRouteName={"Redirect"}
             >
+
+                <Screen name={"Redirect"} component={Redirect}/>
+                <Screen name={"TabsBottom"} component={AppTabsBottom}/>
+                <Screen
+                    name={"Login"}
+                    component={Login}
+                />
                 <Screen name={"Home"} component={Home}/>
-                <Screen name={"Login"} component={Login}/>
                 <Screen name={"Signup"} component={Signup}/>
                 <Screen name={"view"} component={View}/>
                 <Screen name={"viewProductService"} component={ViewProductService}/>
-                <Screen name={"TabsBottom"} component={AppTabsBottom}/>
+
                 <Screen name={"service"} component={Services} options={{
                     title: 'Listagem',
                     headerShown: true,
@@ -40,10 +69,4 @@ function AppStack() {
     )
 }
 
-export default () => {
-    return (
-        <Provider>
-            <AppStack/>
-        </Provider>
-    );
-};
+export default AppStack;
