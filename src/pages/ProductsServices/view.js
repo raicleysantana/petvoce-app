@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ActivityIndicator, ScrollView, TouchableOpacity} from 'react-native';
-import {Image, Rating, Tab, TabView, Text, Button} from 'react-native-elements';
+import {Image, Rating, Tab, TabView, Text, Button, Dialog} from 'react-native-elements';
 import {Title} from 'react-native-paper';
 import api from "../../services/api";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useToast} from "react-native-styled-toast";
 
 function view({route, navigation}) {
 
     const [productService, setProductService] = useState({categoria: {}});
     const [tabIndex, setTabIndex] = useState(0);
+    const [visibleDialog, setVisibleDialog] = useState(false);
 
     const {id} = route.params;
+    const {toast} = useToast();
 
     useEffect(() => {
         loadProductService(id);
@@ -26,6 +29,21 @@ function view({route, navigation}) {
 
     const backPage = () => {
         navigation.goBack();
+    }
+
+    const toggleDialog = () => {
+        setVisibleDialog(!visibleDialog);
+    }
+
+    const addCart = () => {
+        toast({
+            iconFamily: "Feather",
+            iconName: 'check-circle',
+            message: 'Produto adicionado com sucesso!',
+            accentColor: 'success',
+            iconColor: 'success',
+            shouldVibrate: true,
+        })
     }
 
     return (
@@ -108,6 +126,7 @@ function view({route, navigation}) {
                             type={"outline"}
                             titleStyle={{color: "tomato"}}
                             buttonStyle={{borderColor: "tomato"}}
+                            onPress={toggleDialog}
                         />
                     } else {
                         return <Button
@@ -120,6 +139,25 @@ function view({route, navigation}) {
                 })()}
 
             </View>
+
+            <Dialog
+                isVisible={visibleDialog}
+                onBackdropPress={toggleDialog}
+            >
+                <Dialog.Title title="Confirmar"/>
+                <Text>Deseja adicionar este produto no carrinho?</Text>
+
+                <Dialog.Actions>
+                    <Dialog.Button
+                        title="SIM"
+                        onPress={() => {
+                            toggleDialog();
+                            addCart();
+                        }}
+                    />
+                    <Dialog.Button title="CANCELAR" onPress={toggleDialog}/>
+                </Dialog.Actions>
+            </Dialog>
         </>
     );
 }
