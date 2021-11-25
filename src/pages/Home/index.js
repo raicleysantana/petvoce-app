@@ -15,7 +15,6 @@ function index({navigation}) {
     useEffect(() => {
         (async () => {
             const id = await AsyncStorage.getItem("id");
-            console.log(id);
         })();
     }, []);
 

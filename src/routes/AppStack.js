@@ -21,7 +21,7 @@ function AppStack() {
 
     useEffect(() => {
         setTimeout(() => {
-            console.log("aguardando...");
+
         }, 1000);
 
         (async () => {
@@ -32,8 +32,6 @@ function AppStack() {
             } else {
                 setIsSignin("Login");
             }
-            console.log(id);
-
         })();
     }, []);
 

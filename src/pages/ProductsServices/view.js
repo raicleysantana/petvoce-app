@@ -5,9 +5,10 @@ import {Title} from 'react-native-paper';
 import api from "../../services/api";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useToast} from "react-native-styled-toast";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function view({route, navigation}) {
-
+    const [cli_id, setCli_id] = useState(0);
     const [productService, setProductService] = useState({categoria: {}});
     const [tabIndex, setTabIndex] = useState(0);
     const [visibleDialog, setVisibleDialog] = useState(false);
@@ -17,6 +18,11 @@ function view({route, navigation}) {
 
     useEffect(() => {
         loadProductService(id);
+
+        (async () => {
+            const id = await AsyncStorage.getItem("id");
+            setCli_id(id);
+        })();
     }, []);
 
     async function loadProductService(codigo) {
@@ -35,15 +41,22 @@ function view({route, navigation}) {
         setVisibleDialog(!visibleDialog);
     }
 
-    const addCart = () => {
-        toast({
-            iconFamily: "Feather",
-            iconName: 'check-circle',
-            message: 'Produto adicionado com sucesso!',
-            accentColor: 'success',
-            iconColor: 'success',
-            shouldVibrate: true,
-        })
+    const addCart = async () => {
+        const response = await api.get("venda", {
+            params: {cli_id, ps_id: id, opc: ""}
+        });
+
+        if (response) {
+            toast({
+                iconFamily: "Feather",
+                iconName: 'check-circle',
+                message: 'Produto adicionado com sucesso!',
+                accentColor: 'success',
+                iconColor: 'success',
+                shouldVibrate: true,
+            });
+        }
+
     }
 
     return (
