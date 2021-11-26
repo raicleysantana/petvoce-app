@@ -1,16 +1,22 @@
 import React, {useCallback, useState} from 'react';
 import {ActivityIndicator, FlatList, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
-import {Image, ListItem} from "react-native-elements";
+import {Dialog, Image, ListItem} from "react-native-elements";
 import api from "../../services/api";
 import styles from "./styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Feather from 'react-native-vector-icons/Feather';
 import {useFocusEffect} from "@react-navigation/native";
+import {useToast} from "react-native-styled-toast";
 
-function Cart({navigation, route}) {
-    const [cli_id, setCli_id] = useState(0);
+function Cart() {
+    const [cliId, setCliId] = useState(0);
+    const [vpId, setVpId] = useState(0);
+    const [indice, setIndice] = useState(0);
     const [produtosVendas, setProdutosVendas] = useState("");
-    const [qtd, setQtd] = useState(0);
+    const [time, setTime] = useState(null);
+    const [visibleDialog, setVisibleDialog] = useState(false);
+
+    const {toast} = useToast();
 
     useFocusEffect(
         React.useCallback(() => {
@@ -21,30 +27,105 @@ function Cart({navigation, route}) {
     async function loadCart() {
         const cli_id = await AsyncStorage.getItem("id");
 
+        setCliId(cli_id);
+
         const {data} = await api.get("vendas-produtos", {
             params: {cli_id},
         });
 
-
         setProdutosVendas(data);
     }
 
-    const getItemIndex = (arr, item) => {
-        return arr.findIndex((e) => e.id === item);
-    };
-
-
-    const incrementQtdItem = (index) => {
-        console.log(produtosVendas[index]);
+    const toggleDialog = () => {
+        setVisibleDialog(!visibleDialog);
     }
 
-    const decrementQtdItem = (index) => {
-        console.log(produtosVendas[index]);
+    const incrementQtdItem = async (index, opc) => {
+        var pv = produtosVendas[index];
+        var qtd = pv.vp_quantidade;
+
+        if (opc === "mais") {
+            qtd += 1;
+        } else if (opc === "menos") {
+            qtd -= 1;
+        }
+
+        setProdutosVendas(Object.values({
+            ...produtosVendas,
+            [index]: {...produtosVendas[index], vp_quantidade: qtd}
+        }));
+
+        clearTimeout(time);
+
+        setTime(setTimeout(async () => {
+
+            const response = await api.get("venda", {
+                params: {
+                    vp_quantidade: qtd,
+                    vp_id: pv.vp_id,
+                    cli_id: cliId,
+                    ps_id: pv.ps_id
+                }
+            });
+
+        }, 1000));
+
     }
+
+    /*const decrementQtdItem = (index) => {
+        console.log(produtosVendas[index]);
+    }*/
 
     const removeItem = (index) => {
-
+        setIndice(index);
+        toggleDialog();
     }
+
+    const deleteItem = async (index) => {
+        var pv = produtosVendas[indice];
+
+        const response = await api.get("venda", {
+            params: {
+                cli_id: cliId,
+                ps_id: pv.ps_id,
+                opc: "remove",
+            }
+        });
+
+        setProdutosVendas(produtosVendas.filter(item => item.vp_id != pv.vp_id));
+
+        if (response.data) {
+            toast({
+                iconFamily: "Feather",
+                iconName: 'check-circle',
+                message: 'Produto removido com sucesso!',
+                accentColor: 'success',
+                iconColor: 'success',
+                shouldVibrate: true,
+            });
+        }
+    }
+
+    const DialogBox = () => (
+        <Dialog
+            isVisible={visibleDialog}
+            onBackdropPress={toggleDialog}
+        >
+            <Dialog.Title title="Confirmar"/>
+            <Text>Deseja remover este produto do carrinho?</Text>
+
+            <Dialog.Actions>
+                <Dialog.Button
+                    title="SIM"
+                    onPress={() => {
+                        toggleDialog();
+                        deleteItem(indice);
+                    }}
+                />
+                <Dialog.Button title="CANCELAR" onPress={toggleDialog}/>
+            </Dialog.Actions>
+        </Dialog>
+    );
 
     return (
         <SafeAreaView style={styles.container}>
@@ -52,6 +133,7 @@ function Cart({navigation, route}) {
                 data={produtosVendas}
                 keyExtractor={item => item.vp_id.toString()}
                 renderItem={({item, index}) => {
+
                     return (
                         <ListItem topDivider key={index.toString()}>
                             <ListItem.Content>
@@ -82,16 +164,16 @@ function Cart({navigation, route}) {
                                                 justifyContent: "space-between",
                                                 width: "25%"
                                             }}>
-                                                <TouchableOpacity onPress={() => incrementQtdItem(index)}>
+                                                <TouchableOpacity onPress={() => incrementQtdItem(index, "menos")}>
                                                     <Feather name={"minus-circle"} color={"#000"} size={21}/>
                                                 </TouchableOpacity>
                                                 <Text>{item.vp_quantidade}</Text>
-                                                <TouchableOpacity onPress={() => decrementQtdItem(index)}>
+                                                <TouchableOpacity onPress={() => incrementQtdItem(index, "mais")}>
                                                     <Feather name={"plus-circle"} color={"#000"} size={21}/>
                                                 </TouchableOpacity>
                                             </View>
                                             <View>
-                                                <TouchableOpacity onPress={removeItem}>
+                                                <TouchableOpacity onPress={() => removeItem(index)}>
                                                     <Feather name={"trash-2"} color={"#999"} size={21}/>
                                                 </TouchableOpacity>
                                             </View>
@@ -103,9 +185,11 @@ function Cart({navigation, route}) {
                     )
                 }}
             />
-
+            <DialogBox/>
         </SafeAreaView>
     );
+
+
 }
 
 export default Cart;
