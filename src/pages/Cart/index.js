@@ -1,21 +1,32 @@
-import React, {useCallback, useState} from 'react';
-import {ActivityIndicator, FlatList, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
-import {Dialog, Image, ListItem} from "react-native-elements";
-import api from "../../services/api";
-import styles from "./styles";
+import React, {useState} from 'react';
+import {
+    ActivityIndicator,
+    FlatList,
+    SafeAreaView,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
+import {BottomSheet, Button, Dialog, Image, ListItem} from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Feather from 'react-native-vector-icons/Feather';
 import {useFocusEffect} from "@react-navigation/native";
+import api from "../../services/api";
+import styles from "./styles";
+
 import {useToast} from "react-native-styled-toast";
 
-function Cart() {
+
+function Cart({navigation}) {
     const [cliId, setCliId] = useState(0);
-    const [vpId, setVpId] = useState(0);
     const [indice, setIndice] = useState(0);
     const [produtosVendas, setProdutosVendas] = useState("");
     const [time, setTime] = useState(null);
     const [visibleDialog, setVisibleDialog] = useState(false);
+    const [isVisibleBottomSheet, setIsVisibleBottomSheet] = useState(false);
+    const [checked, setChecked] = useState("");
 
+    const logoPix = require("../../assets/payment/pix.png");
     const {toast} = useToast();
 
     useFocusEffect(
@@ -23,6 +34,35 @@ function Cart() {
             loadCart();
         }, [])
     );
+
+    const payment = [
+        {
+            id: '1',
+            title: 'Boleto',
+            icon: require("../../assets/payment/boleto.png")
+        },
+        {
+            id: '2',
+            title: 'Cartão de Credito',
+            icon: require("../../assets/payment/credit_card.png")
+        },
+        {
+            id: '3',
+            title: 'Pix',
+            icon: require("../../assets/payment/pix.png"),
+        },
+        {
+            id: '4',
+            title: "Cancelar",
+            containerStyle: {
+                flex: 1,
+                backgroundColor: '#e35d6a',
+            },
+            content: {alignItems: "center", justifyContent: "center"},
+            titleStyle: {color: "#FFFFFF"},
+            icon: require("../../assets/payment/cancel.png"),
+        },
+    ];
 
     async function loadCart() {
         const cli_id = await AsyncStorage.getItem("id");
@@ -38,6 +78,10 @@ function Cart() {
 
     const toggleDialog = () => {
         setVisibleDialog(!visibleDialog);
+    }
+
+    const toggleDialogBottomSheet = () => {
+        setIsVisibleBottomSheet(!isVisibleBottomSheet);
     }
 
     const incrementQtdItem = async (index, opc) => {
@@ -127,6 +171,42 @@ function Cart() {
         </Dialog>
     );
 
+    const DialogBottomSheet = () => (
+        <BottomSheet
+            isVisible={isVisibleBottomSheet}
+            containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.4)'}}
+            modalProps={{visible: isVisibleBottomSheet}}
+        >
+
+            {payment.map((l, i) => (
+                <ListItem
+                    key={i} topDivider
+                    containerStyle={l.containerStyle ? l.containerStyle : styles.containerStyle}
+                    onPress={function () {
+                        if (l.id == 4) {
+                            toggleDialogBottomSheet();
+                        } else {
+                            navigation.navigate("Checkout", {
+                                id: l.id,
+                                title: l.title
+                            });
+                        }
+                    }}>
+                    <ListItem.Content style={l.content}>
+                        <View style={{
+                            flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center"
+                        }}>
+                            <Image
+                                resizeMode={"center"} source={l.icon}
+                                style={{width: 20, height: 20}}/>
+                            <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+                        </View>
+                    </ListItem.Content>
+                </ListItem>
+            ))}
+        </BottomSheet>
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
@@ -155,7 +235,12 @@ function Cart() {
                                         <ListItem.Title>{item.produtos_servico.ps_nome}</ListItem.Title>
                                         <View style={{marginBottom: 20, marginTop: 10}}>
                                             <Text style={{color: "green"}}>
-                                                R$ {item.produtos_servico.ps_valor}
+                                                R$ {
+                                                (() => {
+                                                    var valor = item.produtos_servico.ps_valor * item.vp_quantidade;
+                                                    return valor;
+                                                })()
+                                            }
                                             </Text>
                                         </View>
                                         <View style={{flexDirection: "row", justifyContent: "space-between"}}>
@@ -185,7 +270,23 @@ function Cart() {
                     )
                 }}
             />
+
+            <View>
+                <Button
+                    title="Finalizar compra"
+                    type="outline"
+                    titleStyle={{color: "#FFFFFF"}}
+                    buttonStyle={{
+                        backgroundColor: "tomato",
+                        borderColor: "tomato",
+                        paddingVertical: 10,
+                        marginHorizontal: 20
+                    }}
+                    onPress={toggleDialogBottomSheet}
+                />
+            </View>
             <DialogBox/>
+            <DialogBottomSheet/>
         </SafeAreaView>
     );
 

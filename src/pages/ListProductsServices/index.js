@@ -27,7 +27,7 @@ function Index({navigation, route}) {
     const CardProductItem = ({item}) => {
         return (
             <TouchableOpacity onPress={() => viewProdutoService(item.ps_id)}>
-                <ListItem containerStyle={styles.card}>
+                <ListItem containerStyle={styles.card} topDivider>
                     <ListItem.Content>
                         <View style={{flexDirection: "row"}}>
                             <View>
@@ -44,7 +44,7 @@ function Index({navigation, route}) {
                                     <View>
                                     </View>
                                     <View>
-                                        <Text>R$ {item.ps_valor}</Text>
+                                        <Text style={{color: "green"}}>R$ {item.ps_valor}</Text>
                                     </View>
                                 </View>
                             </View>

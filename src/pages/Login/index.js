@@ -4,10 +4,11 @@ import {Dialog, Paragraph} from 'react-native-paper';
 import {useToast} from "react-native-styled-toast";
 import {Button} from 'react-native-elements';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import styles from './styles';
 import logo from '../../assets/logo.png';
 import api from "../../services/api";
+import Feather from "react-native-vector-icons/Feather";
 
 
 export default function Login({navigation}) {
@@ -101,6 +102,11 @@ export default function Login({navigation}) {
                 </Dialog.Content>
             </Dialog>
 
+            <TouchableOpacity onPress={() => navigation.navigate("Admin")}>
+                <Text style={{textAlign: "center"}}>
+                    <FontAwesome5 name={"user-cog"} color={"#999"} size={21}/> Acesso ao painel
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 }

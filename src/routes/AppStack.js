@@ -10,6 +10,8 @@ import Services from "../pages/Services";
 import ViewProductService from "../pages/ProductsServices/view";
 import List from "../pages/ListProductsServices";
 import Redirect from "../pages/Login/redirect";
+import Checkout from "../pages/Checkout";
+import Admin from "../pages/Admin";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -19,7 +21,7 @@ const {Navigator, Screen} = createStackNavigator();
 function AppStack() {
     const [isSignin, setIsSignin] = useState("");
 
-    useEffect(() => {
+    /*useEffect(() => {
         setTimeout(() => {
 
         }, 1000);
@@ -33,7 +35,7 @@ function AppStack() {
                 setIsSignin("Login");
             }
         })();
-    }, []);
+    }, []);*/
 
     return (
         <NavigationContainer>
@@ -54,7 +56,7 @@ function AppStack() {
                 <Screen name={"Signup"} component={Signup}/>
                 <Screen name={"view"} component={View}/>
                 <Screen name={"viewProductService"} component={ViewProductService}/>
-
+                <Screen name={"Checkout"} component={Checkout}/>
                 <Screen name={"service"} component={Services} options={{
                     title: 'Listagem',
                     headerShown: true,
@@ -62,6 +64,7 @@ function AppStack() {
                 <Screen name={"List"} component={List} options={{
                     title: "Listagem", headerShown: true
                 }}/>
+                <Screen name={"Admin"} component={Admin}/>
             </Navigator>
         </NavigationContainer>
     )
