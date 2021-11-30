@@ -2,9 +2,10 @@ import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemLi
 import Home from '../pages/Home';
 import React from 'react';
 import Usuario from "../pages/Usuarios";
-import {Linking, StyleSheet, useWindowDimensions, View} from "react-native";
-import Feather from "react-native-vector-icons/Feather";
+import {StyleSheet, useWindowDimensions, View} from "react-native";
 import {createStackNavigator} from '@react-navigation/stack';
+import CreateUser from "../pages/Usuarios/createUser";
+import ViewUser from "../pages/Usuarios/viewUser";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -19,8 +20,36 @@ function MyDrawer() {
     return (
         <Drawer.Navigator
             drawerContent={(props) => <CustomDrawerContent {...props} />}>
-            <Drawer.Screen label={"Painel administrativo"} name="Home" component={Home}/>
-            <Drawer.Screen label={"Painel administrativo"} name="usuarios" component={Usuario}/>
+            <Drawer.Screen
+                options={{
+                    title: "Pagina Inicial"
+                }} label={"Painel administrativo"}
+                name="Home"
+                component={Home}
+            />
+            <Drawer.Screen
+                options={{
+                    title: "Usuários"
+                }}
+                name="usuarios"
+                component={Usuario}
+            />
+
+            <Drawer.Screen
+                options={{
+                    title: "Usuários"
+                }}
+                name="create-user"
+                component={CreateUser}
+            />
+
+            <Drawer.Screen
+                options={{
+                    title: "Visualizar Usuários"
+                }}
+                name="view-user"
+                component={ViewUser}
+            />
 
         </Drawer.Navigator>
     );

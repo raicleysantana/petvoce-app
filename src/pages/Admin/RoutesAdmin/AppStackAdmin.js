@@ -18,7 +18,7 @@ function AppStackAdmin() {
             >
                 <Screen name={"Login"} component={Login}/>
                 <Screen name={"Drawer"} component={DrawerStack}/>
-                <Screen name={"Usuarios"} component={Usuario}/>
+              {/*  <Screen name={"Usuarios"} component={Usuario}/>*/}
             </Navigator>
         </NavigationContainer>
 
