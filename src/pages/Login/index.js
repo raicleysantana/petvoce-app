@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView} from 'react-native';
 import {Dialog, Paragraph} from 'react-native-paper';
 import {useToast} from "react-native-styled-toast";
 import {Button} from 'react-native-elements';
@@ -53,8 +53,7 @@ export default function Login({navigation}) {
     }
 
     return (
-        <View style={styles.container}>
-
+        <KeyboardAvoidingView enabled={Platform.OS == 'ios'} behavior="padding" style={styles.container}>
             <View style={styles.form}>
                 <View style={styles.logoContainer}>
                     <Image source={logo} style={styles.logo}/>
@@ -93,6 +92,13 @@ export default function Login({navigation}) {
                         <Text style={{color: "#2a5db0"}}>Crie uma</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.painel}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Admin")}>
+                        <Text style={{textAlign: "center"}}>
+                            <FontAwesome5 name={"user-cog"} color={"#999"} size={21}/> Acesso ao painel
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <Dialog visible={visibleMsg} onDismiss={hideDialog}>
@@ -102,11 +108,7 @@ export default function Login({navigation}) {
                 </Dialog.Content>
             </Dialog>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Admin")}>
-                <Text style={{textAlign: "center"}}>
-                    <FontAwesome5 name={"user-cog"} color={"#999"} size={21}/> Acesso ao painel
-                </Text>
-            </TouchableOpacity>
-        </View>
+
+        </KeyboardAvoidingView>
     );
 }

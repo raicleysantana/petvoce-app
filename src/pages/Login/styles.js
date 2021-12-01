@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         justifyContent: "center",
+    },
+
+    painel: {
+        marginTop: 50,
     },
 
     inputContainer: {

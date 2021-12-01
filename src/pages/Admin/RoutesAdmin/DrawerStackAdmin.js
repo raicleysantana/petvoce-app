@@ -6,6 +6,11 @@ import {StyleSheet, useWindowDimensions, View} from "react-native";
 import {createStackNavigator} from '@react-navigation/stack';
 import CreateUser from "../pages/Usuarios/createUser";
 import ViewUser from "../pages/Usuarios/viewUser";
+import Produtos from "../pages/Produtos";
+import ViewProduto from "../pages/Produtos/viewProduto";
+import CreateProduto from "../pages/Produtos/createProduto";
+import {List} from 'react-native-paper';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -51,18 +56,41 @@ function MyDrawer() {
                 component={ViewUser}
             />
 
+            <Drawer.Screen
+                options={{
+                    title: "Produtos"
+                }}
+                name="produtos"
+                component={Produtos}
+            />
+
+            <Drawer.Screen
+                options={{
+                    title: "Visualizar Produtos"
+                }}
+                name="view-produto"
+                component={ViewProduto}
+            />
+
+            <Drawer.Screen
+                options={{
+                    title: "Cadastrar Produtos"
+                }}
+                name="create-produto"
+                component={CreateProduto}
+            />
         </Drawer.Navigator>
     );
 }
 
-const StackNav = () => {
+/*const StackNav = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Home}/>
             <Stack.Screen name="usuarios" component={Usuario}/>
         </Stack.Navigator>
     );
-};
+};*/
 
 function CustomDrawerContent(props) {
     const width = useWindowDimensions().width * 0.3;
@@ -71,8 +99,36 @@ function CustomDrawerContent(props) {
         <DrawerContentScrollView {...props}>
             {/*<DrawerItemList {...props} />*/}
             <DrawerItem
-                label="Usuários"
+                label={() => (
+                    <List.Item
+                        style={styles.item}
+                        title="Usuários"
+                        left={props => <List.Icon {...props} icon="account-group"/>}
+                    />
+                )}
                 onPress={() => props.navigation.navigate("usuarios")}
+            />
+
+            <DrawerItem
+                label={() => (
+                    <List.Item
+                        style={styles.item}
+                        title="Produtos"
+                        left={props => <List.Icon {...props} icon="archive"/>}
+                    />
+                )}
+                onPress={() => props.navigation.navigate("produtos")}
+            />
+
+            <DrawerItem
+                label={() => (
+                    <List.Item
+                        style={styles.item}
+                        title="Sair"
+                        left={props => <List.Icon {...props} icon="logout"/>}
+                    />
+                )}
+                onPress={() => props.navigation.navigate("Login")}
             />
         </DrawerContentScrollView>
     );
@@ -104,4 +160,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         padding: 10,
     },
+
+    item: {
+        paddingVertical: 0,
+    }
 });

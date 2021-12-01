@@ -80,6 +80,7 @@ export default function Login({navigation}) {
                         value={senha}
                         onChangeText={text => setSenha(text)}
                         mode={"outlined"}
+                        secureTextEntry={true}
                     />
                 </View>
 
