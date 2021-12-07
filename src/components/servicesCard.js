@@ -10,8 +10,9 @@ import ImgBlog from '../assets/services/pet-blog.jpg';
 
 function servicesCard({ navigation }) {
 
-    const handleService = (type, title) => {
-        navigation.navigate("service", { type, title })
+
+    const handleService = (category, title) => {
+        navigation.navigate("List", { category, title })
     }
 
     return (
@@ -19,21 +20,21 @@ function servicesCard({ navigation }) {
             <View style={styles.servicesContainer}>
                 <TouchableOpacity
                     style={styles.servicesItem}
-                    onPress={() => handleService("cv", "Clínicas Veterinárias")}
+                    onPress={() => handleService("3", "Saúde")}
                 >
                     <Image source={ImgPetSaude} style={styles.serviceImage} />
                     <Text style={styles.serviceTitle}>PET SAÚDE</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.servicesItem}>
-                    <Image source={ImgGroomer} style={styles.serviceImage} />
-                    <Text style={styles.serviceTitle}>GROOMER</Text>
-                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.servicesItem}
-                    onPress={() => handleService("ps", "Pet Shoppings")}
+                    onPress={() => handleService("0", "Produtos")}
                 >
                     <Image source={ImgPetShop} style={styles.serviceImage} />
                     <Text style={styles.serviceTitle}>PET PRODUTOS</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.servicesItem}>
+                    <Image source={ImgGroomer} style={styles.serviceImage} />
+                    <Text style={styles.serviceTitle}>GROOMER</Text>
                 </TouchableOpacity>
             </View>
 

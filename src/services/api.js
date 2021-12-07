@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://10.0.0.115:3333/',
+    baseURL: 'https://petvoce-api.herokuapp.com/',
 });
 
 export default api;

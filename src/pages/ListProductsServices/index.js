@@ -1,10 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, FlatList, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator} from "react-native";
+import React, { useEffect, useState } from 'react';
+import { ScrollView, FlatList, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import api from "../../services/api";
-import {Card, Image, ListItem} from "react-native-elements";
+import { Card, Image, ListItem } from "react-native-elements";
 
-function Index({navigation, route}) {
+function Index({ navigation, route }) {
     const [productsService, setProductService] = useState([]);
+
+    if (route.params) {
+        const { title } = route.params;
+        navigation.setOptions({
+            title
+        });
+
+    }
 
     useEffect(() => {
         loadProductService();
@@ -24,33 +32,33 @@ function Index({navigation, route}) {
         });
     }
 
-    const CardProductItem = ({item}) => {
+    const CardProductItem = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => viewProdutoService(item.ps_id)}>
                 <ListItem containerStyle={styles.card} topDivider>
                     <ListItem.Content>
-                        <View style={{flexDirection: "row"}}>
+                        <View style={{ flexDirection: "row" }}>
                             <View>
                                 <Image
                                     style={styles.image}
-                                    source={{uri: item.ps_foto}}
+                                    source={{ uri: item.ps_foto }}
                                     resizeMode="contain"
-                                    PlaceholderContent={<ActivityIndicator/>}
+                                    PlaceholderContent={<ActivityIndicator />}
                                 />
                             </View>
-                            <View style={[styles.flex1, {paddingLeft: 10}]}>
+                            <View style={[styles.flex1, { paddingLeft: 10 }]}>
                                 <Card.Title style={styles.titleCard}>{item.ps_nome}</Card.Title>
                                 <View>
                                     <View>
                                     </View>
                                     <View>
-                                        <Text style={{color: "green"}}>R$ {item.ps_valor}</Text>
+                                        <Text style={{ color: "green" }}>R$ {item.ps_valor}</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </ListItem.Content>
-                    <ListItem.Chevron color="black"/>
+                    <ListItem.Chevron color="black" />
                 </ListItem>
             </TouchableOpacity>
 
