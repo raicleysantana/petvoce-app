@@ -17,7 +17,7 @@ import styles from "./styles";
 import {useToast} from "react-native-styled-toast";
 
 
-function Cart({navigation}) {
+function Sales({navigation}) {
     const [cliId, setCliId] = useState(0);
     const [indice, setIndice] = useState(0);
     const [produtosVendas, setProdutosVendas] = useState("");
@@ -31,7 +31,7 @@ function Cart({navigation}) {
 
     useFocusEffect(
         React.useCallback(() => {
-            loadCart();
+            loadSales();
         }, [])
     );
 
@@ -64,14 +64,15 @@ function Cart({navigation}) {
         },
     ];
 
-    async function loadCart() {
+    async function loadSales() {
         const cli_id = await AsyncStorage.getItem("id");
 
         setCliId(cli_id);
 
-        const {data} = await api.get("vendas-produtos", {
-            params: {cli_id},
-        });
+        const {data} = await api.post("vendas-pagas",
+            {cli_id},
+        );
+
         console.log(data);
         setProdutosVendas(data);
     }
@@ -212,20 +213,27 @@ function Cart({navigation}) {
         <SafeAreaView style={styles.container}>
             <FlatList
                 data={produtosVendas}
-                keyExtractor={item => item.vp_id.toString()}
+                keyExtractor={item => item.ven_id.toString()}
                 renderItem={({item, index}) => {
 
                     return (
                         <ListItem topDivider key={index.toString()}>
                             <ListItem.Content>
-                                <View style={{flexDirection: "row"}}>
+                                <View style={{flexDirection: "column"}}>
                                     <View>
-                                        <Image
-                                            style={styles.image}
-                                            source={{uri: item.produtos_servico.ps_foto}}
-                                            resizeMode="contain"
-                                            PlaceholderContent={<ActivityIndicator/>}
-                                        />
+                                        <Text>Data:</Text>
+                                        <Text style={styles.bold}>{item.ven_data_criacao}</Text>
+                                    </View>
+
+                                    <View>
+                                        <Text>Situação:</Text>
+                                        <Text style={styles.bold}>{item.ven_situacao}</Text>
+                                    </View>
+                                    <View>
+                                        <Text>Valor Total:</Text>
+                                        <Text style={{color: "green", fontWeight: "bold"}}>
+                                            R$ {item.ven_total}
+                                        </Text>
                                     </View>
                                     <View
                                         style={{
@@ -233,37 +241,9 @@ function Cart({navigation}) {
                                             padding: 5,
                                             justifyContent: "space-between"
                                         }}>
-                                        <ListItem.Title>{item.produtos_servico.ps_nome}</ListItem.Title>
-                                        <View style={{marginBottom: 20, marginTop: 10}}>
-                                            <Text style={{color: "green"}}>
-                                                R$ {
-                                                (() => {
-                                                    var valor = item.produtos_servico.ps_valor * item.vp_quantidade;
-                                                    return valor;
-                                                })()
-                                            }
-                                            </Text>
-                                        </View>
-                                        <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                            <View style={{
-                                                flexDirection: "row",
-                                                justifyContent: "space-between",
-                                                width: "25%"
-                                            }}>
-                                                <TouchableOpacity onPress={() => incrementQtdItem(index, "menos")}>
-                                                    <Feather name={"minus-circle"} color={"#000"} size={21}/>
-                                                </TouchableOpacity>
-                                                <Text>{item.vp_quantidade}</Text>
-                                                <TouchableOpacity onPress={() => incrementQtdItem(index, "mais")}>
-                                                    <Feather name={"plus-circle"} color={"#000"} size={21}/>
-                                                </TouchableOpacity>
-                                            </View>
-                                            <View>
-                                                <TouchableOpacity onPress={() => removeItem(index)}>
-                                                    <Feather name={"trash-2"} color={"#999"} size={21}/>
-                                                </TouchableOpacity>
-                                            </View>
-                                        </View>
+                                    </View>
+                                    <View style={{marginBottom: 20, marginTop: 10}}>
+
                                     </View>
                                 </View>
                             </ListItem.Content>
@@ -272,20 +252,6 @@ function Cart({navigation}) {
                 }}
             />
 
-            <View>
-                <Button
-                    title="Finalizar compra"
-                    type="outline"
-                    titleStyle={{color: "#FFFFFF"}}
-                    buttonStyle={{
-                        backgroundColor: "tomato",
-                        borderColor: "tomato",
-                        paddingVertical: 10,
-                        marginHorizontal: 20
-                    }}
-                    onPress={toggleDialogBottomSheet}
-                />
-            </View>
             <DialogBox/>
             <DialogBottomSheet/>
         </SafeAreaView>
@@ -294,4 +260,4 @@ function Cart({navigation}) {
 
 }
 
-export default Cart;
+export default Sales;

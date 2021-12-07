@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Home from '../pages/Home';
 import Cart from '../pages/Cart';
 import Profile from '../pages/Profile';
+import Sales from "../pages/Sales";
 
 const {Navigator, Screen} = createMaterialBottomTabNavigator();
 
@@ -40,10 +41,10 @@ function AppTabsBottom() {
             />
 
             <Screen
-                name={"Home2"}
-                component={Home}
+                name={"Vendas"}
+                component={Sales}
                 options={{
-                    tabBarLabel: 'Mapa',
+                    tabBarLabel: 'Vendas',
                     tabBarIcon: ({color}) => (
                         <MaterialCommunityIcons name="shopping-outline" color={color} size={26}/>
                     ),
