@@ -5,13 +5,12 @@ import {useToast} from "react-native-styled-toast";
 import {Button} from 'react-native-elements';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from './styles';
-import logo from '../../../../assets/logo.png';
 import api from "../../../../services/api";
 
 
 export default function Login({navigation}) {
-    const [usuario, setUsuario] = useState("webmaster");
-    const [senha, setSenha] = useState("webmaster");
+    const [usuario, setUsuario] = useState("");
+    const [senha, setSenha] = useState("");
     const [visibleMsg, setVisibleMsg] = useState(false);
     const [textMsg, setTextMsg] = useState("");
 

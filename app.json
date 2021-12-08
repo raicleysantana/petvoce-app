@@ -4,7 +4,7 @@
     "slug": "petvoce",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/logo.png",
     "splash": {
       "image": "./assets/custom_splash.png",
       "resizeMode": "contain",
