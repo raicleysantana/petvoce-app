@@ -230,6 +230,10 @@ function Sales({navigation}) {
                                         <Text style={styles.bold}>{item.ven_situacao}</Text>
                                     </View>
                                     <View>
+                                        <Text>Forma de Pagamento:</Text>
+                                        <Text style={styles.bold}>{item.forma_pagamento.fp_descricao}</Text>
+                                    </View>
+                                    <View>
                                         <Text>Valor Total:</Text>
                                         <Text style={{color: "green", fontWeight: "bold"}}>
                                             R$ {item.ven_total}

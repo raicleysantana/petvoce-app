@@ -28,18 +28,6 @@ function AppTabsBottom() {
                 }}
             />
 
-
-            <Screen
-                name={"Home1"}
-                component={Home}
-                options={{
-                    tabBarLabel: 'Início',
-                    tabBarIcon: ({color}) => (
-                        <MaterialCommunityIcons name="map-marker-radius-outline" color={color} size={26}/>
-                    ),
-                }}
-            />
-
             <Screen
                 name={"Vendas"}
                 component={Sales}

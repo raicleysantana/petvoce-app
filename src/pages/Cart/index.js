@@ -24,7 +24,6 @@ function Cart({navigation}) {
     const [time, setTime] = useState(null);
     const [visibleDialog, setVisibleDialog] = useState(false);
     const [isVisibleBottomSheet, setIsVisibleBottomSheet] = useState(false);
-    const [checked, setChecked] = useState("");
 
     const logoPix = require("../../assets/payment/pix.png");
     const {toast} = useToast();
@@ -72,7 +71,7 @@ function Cart({navigation}) {
         const {data} = await api.get("vendas-produtos", {
             params: {cli_id},
         });
-        console.log(data);
+
         setProdutosVendas(data);
     }
 
@@ -210,6 +209,14 @@ function Cart({navigation}) {
 
     return (
         <SafeAreaView style={styles.container}>
+            {(() => {
+                if (produtosVendas.length == 0) {
+                    return <Text
+                        style={{textAlign: "center", fontWeight: "bold", fontSize: 20}}>
+                        Nenhum produto adicionado
+                    </Text>
+                }
+            })()}
             <FlatList
                 data={produtosVendas}
                 keyExtractor={item => item.vp_id.toString()}
@@ -272,26 +279,31 @@ function Cart({navigation}) {
                 }}
             />
 
-            <View>
-                <Button
-                    title="Finalizar compra"
-                    type="outline"
-                    titleStyle={{color: "#FFFFFF"}}
-                    buttonStyle={{
-                        backgroundColor: "tomato",
-                        borderColor: "tomato",
-                        paddingVertical: 10,
-                        marginHorizontal: 20
-                    }}
-                    onPress={toggleDialogBottomSheet}
-                />
-            </View>
+            {(() => {
+                if (produtosVendas.length > 0) {
+                    return (
+                        <View>
+                            <Button
+                                title="Finalizar compra"
+                                type="outline"
+                                titleStyle={{color: "#FFFFFF"}}
+                                buttonStyle={{
+                                    backgroundColor: "tomato",
+                                    borderColor: "tomato",
+                                    paddingVertical: 10,
+                                    marginHorizontal: 20
+                                }}
+                                onPress={toggleDialogBottomSheet}
+                            />
+                        </View>
+                    )
+                }
+            })()}
+
             <DialogBox/>
             <DialogBottomSheet/>
         </SafeAreaView>
     );
-
-
 }
 
 export default Cart;
