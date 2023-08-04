@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {StyleSheet, SafeAreaView, AppRegistry} from 'react-native';
 import Routes from './src/routes/AppStack';
 import {ThemeProvider} from 'styled-components';
 import {ToastProvider} from 'react-native-styled-toast';
@@ -30,6 +30,8 @@ export default function App() {
         </SafeAreaView>
     );
 }
+
+AppRegistry.registerComponent('main', () => App);
 
 const styles = StyleSheet.create({
     container: {
